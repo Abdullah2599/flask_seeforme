@@ -1,4 +1,6 @@
-flask
-ultralytics
-pillow
-torch
+flask==3.1.2
+ultralytics==8.3.203
+pillow==11.3.0
+torch==2.8.0+cpu
+torchvision==0.23.0+cpu
+gunicorn==23.0.0
