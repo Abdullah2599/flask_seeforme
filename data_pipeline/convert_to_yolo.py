@@ -274,17 +274,29 @@ class DatasetConverter:
             # Note: LVIS uses COCO images, so we'd link to the COCO image directory
             # For now, we'll create the label files
             label_dest_dir = output_dir / split / 'labels'
-            
-            for img_id, annotations in tqdm(image_annotations.items(), desc=f"Creating LVIS {split} labels"):
-                img_info = image_info[img_id]
-                label_filename = img_info['file_name'].replace('.jpg', '.txt')
-                label_path = label_dest_dir / label_filename
+            # Create labels for each image
+            for img_info in tqdm(images_data, desc="Creating LVIS train labels"):
+                img_id = img_info['id']
+                if img_id not in image_annotations:
+                    continue
+                
+                # Handle different possible keys for filename
+                filename = img_info.get('file_name') or img_info.get('filename') or img_info.get('coco_url', '').split('/')[-1]
+                if not filename:
+                    continue
+                    
+                label_filename = filename.replace('.jpg', '.txt')
+                label_path = os.path.join(label_dest_dir, label_filename)
+                
+                # Check if label file already exists
+                if os.path.exists(label_path):
+                    logger.warning(f"Label file already exists: {label_path}")
+                    continue
                 
                 with open(label_path, 'w') as f:
-                    f.write('\n'.join(annotations))
+                    f.write('\n'.join(image_annotations[img_id]))
         
         logger.info(f"LVIS conversion completed. Output: {output_dir}")
-        return True
     
     def convert_objects365_to_yolo(self):
         """Convert Objects365 dataset to YOLO format"""
